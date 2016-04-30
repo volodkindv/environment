@@ -1,0 +1,35 @@
+version: '2'
+services:
+  ones_ws:
+#    image: trantor77/ws-1c-apache22
+    image: altf13/1c_server
+    container_name
+    hostname: ones_ws
+    restart: always
+    ports:
+     - "80:80"
+     - "1540-1541:1540-1541"
+     - "1560-1591:1560-1591"
+    volumes:
+     - /volume1/docker/1c/pg_sql:/var/lib/postgresql/data
+     - /volume1/docker/1c/data:/root/.1cv8
+     - /volume1/docker/1c/apache2:/etc/apache2/
+     - /volume1/docker/1c/html:/var/www/html
+    depends_on:
+      - postgres
+  postgres:
+    image: temrdm/1c_postgres
+#    shm_size: 64M
+    volumes:
+     - /volume1/docker/1c/pg_sql:/var/lib/postgresql/data
+    expose:
+     - "5432"
+    environment:
+     - POSTGRES_PASSWORD=**
+  elasticsearch:
+    image: elasticsearch
+   volumes:
+     - /volume1/docker/1c/elasticsearch/data:/var/lib/elasticsearch/data
+    expose:
+     - "9200"
+     - "9300"
