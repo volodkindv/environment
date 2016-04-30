@@ -3,7 +3,7 @@ services:
   ones_ws:
 #    image: trantor77/ws-1c-apache22
     image: altf13/1c_server
-    container_name
+    container_name: ones_ws
     hostname: ones_ws
     restart: always
     ports:
@@ -17,9 +17,13 @@ services:
      - /volume1/docker/1c/html:/var/www/html
     depends_on:
       - postgres
+      - elasticsearch
   postgres:
     image: temrdm/1c_postgres
-#    shm_size: 64M
+    container_name: postgres
+    hostname: postgres
+    restart: always
+#    shm_size: 64M #теоретически может понадобиться, если postgres будет ругаться на shared_memory
     volumes:
      - /volume1/docker/1c/pg_sql:/var/lib/postgresql/data
     expose:
@@ -28,8 +32,12 @@ services:
      - POSTGRES_PASSWORD=**
   elasticsearch:
     image: elasticsearch
-   volumes:
-     - /volume1/docker/1c/elasticsearch/data:/var/lib/elasticsearch/data
+    container_name: elasticsearch
+    hostname: elasticsearch
+    restart: always
+    volumes:
+     - /volume1/docker/1c/elasticsearch/data:/usr/share/elasticsearch/data
+     - /volume1/docker/1c/elasticsearch/plugins:/usr/share/elasticsearch/plugins
     expose:
      - "9200"
      - "9300"
