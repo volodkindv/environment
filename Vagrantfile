@@ -4,9 +4,7 @@
 Vagrant.configure(2) do |config|
 
   config.vm.box = "williamyeh/ubuntu-trusty64-docker"
-#  config.vm.box = "box-cutter/ubuntu1404-docker"# этот должен быть меньше
 #  config.vm.network :forwarded_port, guest: 80, host: 8000
-#  config.vm.network :forwarded_port, guest: 9200, host: 9200
   config.vm.synced_folder ".", "/home/vagrant"
   config.vm.network :private_network, ip: "192.168.33.101" 
 
@@ -27,4 +25,8 @@ Vagrant.configure(2) do |config|
     vb.customize ["modifyvm", :id, "--cpus", cpus]
   end
 
+  config.vm.provision "shell", inline: <<-SHELL
+    # composing services
+    docker-compose up -d
+  SHELL
 end

@@ -1,0 +1,1 @@
+docker run -d --name 1c_server -v /volume1/docker/1c/data:/root/.1cv8 -v /volume1/docker/1c/apache2:/etc/apache2/ -v /volume1/docker/1c/html:/var/www/html -p 4010:80 -p 1540-1541:1540-1541 -p 1560-1591:1560-1591 -h db altf13/1c_server

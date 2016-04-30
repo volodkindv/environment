@@ -1,0 +1,1 @@
+docker run -d -p 5432:5432 --restart=always -v /volume1/docker/1c/pg_sql:/var/lib/postgresql/data -e POSTGRES_PASSWORD=** --name 1c_postgres temrdm/1c_postgres:9.2-1C
