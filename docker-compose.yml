@@ -23,7 +23,10 @@ services:
     container_name: postgres
     hostname: postgres
     restart: always
-    ipc: host #�� ���� postgresql �뤠�� �訡�� �� shmmax � sysctl. �� ��� �����, �� ��ॣ����஢�� https://github.com/docker/docker/issues/10176 , � ⠪�� ᯮᮡ ��室� - ����������
+# Если контейнер с postgresql не стартует и выдает ошибку про shmmax в sysctl, значит, это баг докера.
+# он зарегистрирован https://github.com/docker/docker/issues/10176
+# следующая команда "ipc: host" позволяет пофиксить его, но дает контейнеру доступ к процессам хоста, что небезопасно. 
+    ipc: host
     volumes:
      - /volume1/docker/1c/pg_sql:/var/lib/postgresql/data
     expose:
