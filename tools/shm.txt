@@ -1,0 +1,2 @@
+¬озможное решение проблем с shm при запуске postgresql
+http://wiki.etersoft.ru/PostgreSQL

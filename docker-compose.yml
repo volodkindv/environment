@@ -23,7 +23,7 @@ services:
     container_name: postgres
     hostname: postgres
     restart: always
-#    shm_size: 64M #С‚РµРѕСЂРµС‚РёС‡РµСЃРєРё РјРѕР¶РµС‚ РїРѕРЅР°РґРѕР±РёС‚СЊСЃСЏ, РµСЃР»Рё postgres Р±СѓРґРµС‚ СЂСѓРіР°С‚СЊСЃСЏ РЅР° shared_memory
+    ipc: host #при старте postgresql выдает ошибку про shmmax в sysctl. Это баг докера, он зарегистрирован https://github.com/docker/docker/issues/10176 , и таков способ обхода - небезопасный
     volumes:
      - /volume1/docker/1c/pg_sql:/var/lib/postgresql/data
     expose:
