@@ -11,8 +11,8 @@ services:
      - "1540-1541:1540-1541"
      - "1560-1591:1560-1591"
     volumes:
-     - /volume1/docker/1c/pg_sql:/var/lib/postgresql/data
      - /volume1/docker/1c/data:/root/.1cv8
+     - /volume1/docker/1c/out_vrd:/descriptors
      - /volume1/docker/1c/apache2:/etc/apache2/
      - /volume1/docker/1c/html:/var/www/html
     depends_on:
