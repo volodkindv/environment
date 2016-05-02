@@ -25,7 +25,7 @@ ENV LANG ru_RU.utf8
 
 ENV SERVER_1C_VERSION 8.3.7-2027
 ENV SERVER_1C_ARCH amd64
-ENV DIST_SERVER_1C ../dist/
+ENV DIST_SERVER_1C ./dist/
 
 ADD ${DIST_SERVER_1C} /opt/
 
@@ -43,7 +43,7 @@ RUN dpkg -i /opt/1c-enterprise83-common_${SERVER_1C_VERSION}_${SERVER_1C_ARCH}.d
             /opt/1c-enterprise83-server_${SERVER_1C_VERSION}_${SERVER_1C_ARCH}.deb
 
 RUN mkdir -p /opt/1C/v8.3/x86_64/conf/
-COPY logcfg.xml /opt/1C/v8.3/x86_64/conf/
+COPY ./ones/logcfg.xml /opt/1C/v8.3/x86_64/conf/
 #RUN chown -R usr1cv8:grp1cv8 /opt/1C
 
 RUN mkdir -p /var/log/1c/dumps/
@@ -53,7 +53,7 @@ RUN mkdir -p /var/log/1c/dumps/
 #VOLUME /home/usr1cv8/
 #VOLUME /var/log/1c
 
-COPY docker-entrypoint.sh /
+COPY ./ones/docker-entrypoint.sh /
 
 # теперь исправим баги от винды:
 # сделаем файл исполняемым
