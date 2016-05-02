@@ -1,0 +1,24 @@
+<config xmlns="http://v8.1c.ru/v8/tech-log">
+    <dump create="true" location="/var/log/1c/dumps" prntscrn="true" type="2"/>
+    <log history="72" location="/var/log/1c">
+        <event>
+            <eq property="name" value="EXCP"/>
+        </event>
+        <event>
+            <eq property="name" value="EXCPCNTX"/>
+        </event>
+        <event>
+            <eq property="name" value="PROC"/>
+        </event>
+        <event>
+            <eq property="name" value="ADMIN"/>
+        </event>
+        <event>
+            <eq property="name" value="MEM"/>
+        </event>
+        <event>
+            <eq property="name" value="LEAKS"/>
+        </event>
+        <property name="all"/>
+    </log>
+</config>

@@ -1,0 +1,54 @@
+version: '2'
+services:
+  apache:
+    build: ./apache  #создаем образ по настройкам dockerfile во вложенной директории apache
+    container_name: apache
+    hostname: apache
+    restart: always
+    ports:
+     - "80:80"
+    volumes:
+     - /vol1/docker/1c/apache_conf:/etc/apache2/add #сюда будем складывать файлы публикаций баз
+    depends_on:
+      - ones
+  ones:
+    build: ./ones  #создаем образ по настройкам dockerfile во вложенной директории ones
+    container_name: ones
+    hostname: ones
+    restart: always
+    ports:
+     - "1540-1541:1540-1541"
+     - "1560-1591:1560-1591"
+    volumes:
+#     - /vol1/docker/1c/data:/home/usr1cv8
+     - /vol1/docker/1c/data:/root/.1cv8
+     - /vol1/docker/1c/logs:/var/log/1c
+    depends_on:
+      - postgres
+#      - elasticsearch
+  postgres:
+    image: temrdm/1c_postgres
+    container_name: postgres
+    hostname: postgres
+    restart: always
+# Если контейнер с postgresql не стартует и выдает ошибку про shmmax в sysctl, значит, это баг докера.
+# он зарегистрирован https://github.com/docker/docker/issues/10176
+# следующая команда "ipc: host" позволяет пофиксить его, но дает контейнеру доступ к процессам хоста, что небезопасно. 
+    ipc: host
+    volumes:
+     - /volume1/docker/1c/pg_sql:/var/lib/postgresql/data
+    expose:
+     - "5432"
+    environment:
+     - POSTGRES_PASSWORD=**
+  # elasticsearch:
+    # image: elasticsearch
+    # container_name: elasticsearch
+    # hostname: elasticsearch
+    # restart: always
+    # volumes:
+     # - /volume1/docker/1c/elasticsearch/data:/usr/share/elasticsearch/data
+     # - /volume1/docker/1c/elasticsearch/plugins:/usr/share/elasticsearch/plugins
+    # expose:
+     # - "9200"
+     # - "9300"
