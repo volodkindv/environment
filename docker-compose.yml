@@ -28,7 +28,7 @@ services:
      - /vol1/docker/1c/logs:/var/log/1c
     depends_on:
       - postgres
-#      - elasticsearch
+      - elasticsearch
   postgres:
     image: temrdm/1c_postgres
     container_name: postgres
@@ -40,19 +40,19 @@ services:
 # есть способы и надежнее, но уже не до того
     ipc: host
     volumes:
-     - /volume1/docker/1c/pg_sql:/var/lib/postgresql/data
+     - /vol1/docker/1c/pg_sql:/var/lib/postgresql/data
     expose:
      - "5432"
     environment:
      - POSTGRES_PASSWORD=**
-  # elasticsearch:
-    # image: elasticsearch
-    # container_name: elasticsearch
-    # hostname: elasticsearch
-    # restart: always
-    # volumes:
-     # - /volume1/docker/1c/elasticsearch/data:/usr/share/elasticsearch/data
-     # - /volume1/docker/1c/elasticsearch/plugins:/usr/share/elasticsearch/plugins
-    # expose:
-     # - "9200"
-     # - "9300"
+  elasticsearch:
+    image: elasticsearch
+    container_name: elasticsearch
+    hostname: elasticsearch
+    restart: always
+    volumes:
+     - /vol1/docker/1c/elasticsearch/data:/usr/share/elasticsearch/data
+     - /vol1/docker/1c/elasticsearch/plugins:/usr/share/elasticsearch/plugins
+    expose:
+     - "9200"
+     - "9300"
